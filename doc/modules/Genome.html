@@ -1,0 +1,1235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>NEAT (NeuroEvolution of Augmented Topologies) for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>NEAT-Lua</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Types">Types </a></li>
+<li><a href="#Functions">Functions </a></li>
+<li><a href="#Methods">Methods </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/init.html">init</a></li>
+  <li><strong>Genome</strong></li>
+  <li><a href="../modules/Population.html">Population</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Genome</code></h1>
+<p>Create & manipulate genomes</p>
+<p></p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">local Genome = require &quot;NEAT.Genome&quot;
+</pre>
+    </ul>
+
+
+<h2><a href="#Types">Types </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Node">Node</a></td>
+	<td class="summary">The node object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Connection">Connection</a></td>
+	<td class="summary">The connection object.</td>
+	</tr>
+</table>
+<h2><a href="#Functions">Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#new">new (n_inputs, n_outputs)</a></td>
+	<td class="summary">Creates a new Genome object</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isGenome">isGenome (obj)</a></td>
+	<td class="summary">Returns true if `obj` is a Genome instance</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#copy">copy ()</a></td>
+	<td class="summary">Returns an identical copy of the <a href="../modules/Genome.html#">Genome</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setEveryConnectionAsFree">setEveryConnectionAsFree (a1, a2)</a></td>
+	<td class="summary">Sets every connection related to a node as free.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#newNode">newNode (kind, activation)</a></td>
+	<td class="summary">Creates a new node in the class.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#newNodes">newNodes (kind, amount, activation)</a></td>
+	<td class="summary">Create multime nodes _amount_ times.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#existConnection">existConnection (in_node, out_node)</a></td>
+	<td class="summary">Returns true if the connection exist</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setAsFreeConnection">setAsFreeConnection (connection)</a></td>
+	<td class="summary">Sets the given connection as free
+ This function is for internal usage.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#pickRandomFreeConnection">pickRandomFreeConnection ()</a></td>
+	<td class="summary">Return a random free connection</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#existInFreeConnections">existInFreeConnections (connection)</a></td>
+	<td class="summary">Returns true if the given connection is free</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#removeFromFreeConnections">removeFromFreeConnections (in_node, out_node)</a></td>
+	<td class="summary">Removes a connection from the free connections</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getConnection">getConnection (innov)</a></td>
+	<td class="summary">Returns a connection by innovation number</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setConnection">setConnection (in_node, out_node, weight, enabled, innov)</a></td>
+	<td class="summary">Changes an existing connection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#newConnection">newConnection (in_node, out_node, weight, enabled, innov)</a></td>
+	<td class="summary">Creates a new connection</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#resetOutputs">resetOutputs ()</a></td>
+	<td class="summary">Resets the outputs of each node to zero.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#activate">activate ()</a></td>
+	<td class="summary">Activates each node by calling its activation function.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setupMutateProbs">setupMutateProbs (info)</a></td>
+	<td class="summary">Setups the probabilities for each mutation happens when call the `:mutate` method.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#addActivationFunction">addActivationFunction (f)</a></td>
+	<td class="summary">Adds a new activation function that can be used by the class</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutateChangeActivation">mutateChangeActivation ()</a></td>
+	<td class="summary">Choose a random node and change its activation function</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutateSplitConnection">mutateSplitConnection (connection)</a></td>
+	<td class="summary">Slipts a connection, if not passed, it chooses a random connection and split it.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutateWeight">mutateWeight ()</a></td>
+	<td class="summary">selects a random connection and change its weight</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutateNewConnection">mutateNewConnection ()</a></td>
+	<td class="summary">Adds a new connection and returns if possible</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutate">mutate ()</a></td>
+	<td class="summary">Mutates the Network randomly based on the probabilities setted</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#forward">forward (input)</a></td>
+	<td class="summary">Makes the forward process and returns a vector</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#takeAction">takeAction (inp)</a></td>
+	<td class="summary">Returns an integer number which represents what action the AI did.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getDisjointConnections">getDisjointConnections (nn)</a></td>
+	<td class="summary">Returns the disjoint connections</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getMatchingConnections">getMatchingConnections (nn)</a></td>
+	<td class="summary">Returns a list of matching genes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getExcess">getExcess (nn)</a></td>
+	<td class="summary">Returns the number of excess genes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getAvarageWeightDiff">getAvarageWeightDiff (nn)</a></td>
+	<td class="summary">Computes the weight difference between two Genomes</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getCompatibility">getCompatibility (nn[, c1[, c2[, c3]]])</a></td>
+	<td class="summary">Returns how different the networks are</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#crossover">crossover (nn)</a></td>
+	<td class="summary">Makes the crossover between two Genomes generating a "child"</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getSpeciesBelongs">getSpeciesBelongs ()</a></td>
+	<td class="summary">Returns which species this Genome belongs to
+ If you're not using the class <a href="../modules/Population.html#">Population</a> it will not work.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#setSpeciesBelongs">setSpeciesBelongs (s)</a></td>
+	<td class="summary">Sets to which species this Genome is from.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#save">save (file)</a></td>
+	<td class="summary">Saves the Genome in the provided file
+ This method only works if you have binser installed</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#load">load (file)</a></td>
+	<td class="summary">Loads a Genome network from the provided file</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Types"></a>Types </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "Node"></a>
+    <strong>Node</strong>
+    </dt>
+    <dd>
+    The node object.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">out</span>
+         number The output of the node
+        </li>
+        <li><span class="parameter">kind</span>
+         A string representing the kind of the node. Can be: input, hidden, output
+        </li>
+        <li><span class="parameter">f</span>
+         function
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Connection"></a>
+    <strong>Connection</strong>
+    </dt>
+    <dd>
+    The connection object.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">weight</span>
+         a number representing the weight of the connection
+        </li>
+        <li><span class="parameter">in_node</span>
+         a <a href="../modules/Genome.html#Node">Node</a> representing the input node
+        </li>
+        <li><span class="parameter">out_node</span>
+         a <a href="../modules/Genome.html#Node">Node</a> representing the output node
+        </li>
+        <li><span class="parameter">innov</span>
+         an integer representing the [innovation](https://youtube.com) number
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Functions"></a>Functions </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new (n_inputs, n_outputs)</strong>
+    </dt>
+    <dd>
+    Creates a new Genome object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n_inputs</span>
+          integer
+        </li>
+        <li><span class="parameter">n_outputs</span>
+         integer
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "isGenome"></a>
+    <strong>isGenome (obj)</strong>
+    </dt>
+    <dd>
+    Returns true if `obj` is a Genome instance
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">obj</span>
+         any
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">print</span>(Genome.<span class="function-name">isGenome</span>(Genome)) <span class="comment">-- false because it's not an instance
+</span><span class="global">print</span>(Genome.<span class="function-name">isGenome</span>({})) <span class="comment">-- false
+</span><span class="global">print</span>(Genome.<span class="function-name">isGenome</span>(Genome.<span class="function-name">new</span>(<span class="number">2</span>,<span class="number">2</span>)) <span class="comment">-- true
+</span><span class="global">print</span>(Genome.<span class="function-name">isGenome</span>(<span class="string">""</span>)) <span class="comment">-- false</span></pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "copy"></a>
+    <strong>copy ()</strong>
+    </dt>
+    <dd>
+    Returns an identical copy of the <a href="../modules/Genome.html#">Genome</a>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../modules/Genome.html#">Genome</a>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> mynn = Genome.<span class="function-name">new</span>(<span class="number">5</span>,<span class="number">5</span>)
+
+<span class="keyword">local</span> copy = mynn:<span class="function-name">copy</span>()
+
+<span class="global">print</span>(mynn)
+<span class="global">print</span>(copy)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "setEveryConnectionAsFree"></a>
+    <strong>setEveryConnectionAsFree (a1, a2)</strong>
+    </dt>
+    <dd>
+    Sets every connection related to a node as free.
+ This method is for internal usage, it's not recommended to use it at all
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a1</span>
+
+        </li>
+        <li><span class="parameter">a2</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "newNode"></a>
+    <strong>newNode (kind, activation)</strong>
+    </dt>
+    <dd>
+    Creates a new node in the class.
+ Generally you can only add hidden nodes,
+ because the creation of input/output nodes are locked
+ once you create an instance of <a href="../modules/Genome.html#">Genome</a>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">kind</span>
+         string
+        </li>
+        <li><span class="parameter">activation</span>
+         function
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../modules/Genome.html#Node">Node</a>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> mynn = Genome.<span class="function-name">new</span>(<span class="number">2</span>, <span class="number">3</span>)
+mynn:<span class="function-name">newNode</span> <span class="string">"hidden"</span>
+mynn:<span class="function-name">newNode</span> <span class="string">"input"</span> <span class="comment">-- error</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "newNodes"></a>
+    <strong>newNodes (kind, amount, activation)</strong>
+    </dt>
+    <dd>
+    Create multime nodes _amount_ times.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">kind</span>
+         The kind of the node
+        </li>
+        <li><span class="parameter">amount</span>
+         How much nodes to be inserted
+        </li>
+        <li><span class="parameter">activation</span>
+         The activation function of the node
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "existConnection"></a>
+    <strong>existConnection (in_node, out_node)</strong>
+    </dt>
+    <dd>
+    Returns true if the connection exist
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">in_node</span>
+         The input node. Can be an integer or a <a href="../modules/Genome.html#Node">Node</a>
+        </li>
+        <li><span class="parameter">out_node</span>
+         The output node. Can be an integer or a <a href="../modules/Genome.html#Node">Node</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true or false
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setAsFreeConnection"></a>
+    <strong>setAsFreeConnection (connection)</strong>
+    </dt>
+    <dd>
+    Sets the given connection as free
+ This function is for internal usage.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">connection</span>
+         <a href="../modules/Genome.html#Connection">Connection</a>
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "pickRandomFreeConnection"></a>
+    <strong>pickRandomFreeConnection ()</strong>
+    </dt>
+    <dd>
+    Return a random free connection
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        An array of size 2 representing the connection. E.g: {2,3}
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "existInFreeConnections"></a>
+    <strong>existInFreeConnections (connection)</strong>
+    </dt>
+    <dd>
+    Returns true if the given connection is free
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">connection</span>
+         a <a href="../modules/Genome.html#Connection">Connection</a> object. But it's only required the in_node and out_node field.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        boolean
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "removeFromFreeConnections"></a>
+    <strong>removeFromFreeConnections (in_node, out_node)</strong>
+    </dt>
+    <dd>
+    Removes a connection from the free connections
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">in_node</span>
+
+        </li>
+        <li><span class="parameter">out_node</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getConnection"></a>
+    <strong>getConnection (innov)</strong>
+    </dt>
+    <dd>
+    Returns a connection by innovation number
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">innov</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setConnection"></a>
+    <strong>setConnection (in_node, out_node, weight, enabled, innov)</strong>
+    </dt>
+    <dd>
+    Changes an existing connection.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">in_node</span>
+
+        </li>
+        <li><span class="parameter">out_node</span>
+
+        </li>
+        <li><span class="parameter">weight</span>
+
+        </li>
+        <li><span class="parameter">enabled</span>
+
+        </li>
+        <li><span class="parameter">innov</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "newConnection"></a>
+    <strong>newConnection (in_node, out_node, weight, enabled, innov)</strong>
+    </dt>
+    <dd>
+    Creates a new connection
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">in_node</span>
+
+        </li>
+        <li><span class="parameter">out_node</span>
+
+        </li>
+        <li><span class="parameter">weight</span>
+
+        </li>
+        <li><span class="parameter">enabled</span>
+
+        </li>
+        <li><span class="parameter">innov</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        Connection
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> mynn = Gnome.<span class="function-name">new</span>(<span class="number">1</span>, <span class="number">1</span>)
+mynn:<span class="function-name">newConnection</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0.5</span>)
+<span class="global">print</span>(mynn:<span class="function-name">forward</span>({ <span class="number">5</span> }))</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "resetOutputs"></a>
+    <strong>resetOutputs ()</strong>
+    </dt>
+    <dd>
+    Resets the outputs of each node to zero.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "activate"></a>
+    <strong>activate ()</strong>
+    </dt>
+    <dd>
+    Activates each node by calling its activation function.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setupMutateProbs"></a>
+    <strong>setupMutateProbs (info)</strong>
+    </dt>
+    <dd>
+    Setups the probabilities for each mutation happens when call the `:mutate` method.
+ If you don't call this method the default probabilities will be setted.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">info</span>
+         table
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/Genome.html#mutate">mutate</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> mynn = Genome.<span class="function-name">new</span>(<span class="number">3</span>, <span class="number">1</span>)
+
+<span class="comment">-- By default, the configurations are:
+</span>mynn:<span class="function-name">setupMutateProbs</span>{
+ activationChange = <span class="number">0.1</span>, <span class="comment">-- 10% chance to an activation function be changed
+</span> splitConnection = <span class="number">0.2</span>, <span class="comment">-- 20% chance to a connection be splitted
+</span> weightChange = <span class="number">0.3</span>, <span class="comment">-- 50% chance to a weight value be changed
+</span> newConnection = <span class="number">0.5</span>, <span class="comment">-- 10% chance to a connection be created
+</span> newNode = <span class="number">0.1</span> <span class="comment">-- 10% chance to a new node be created
+</span>}</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "addActivationFunction"></a>
+    <strong>addActivationFunction (f)</strong>
+    </dt>
+    <dd>
+    Adds a new activation function that can be used by the class
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">f</span>
+
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/Genome.html#setupMutateProbs">setupMutateProbs</a></li>
+         <li><a href="../modules/Genome.html#mutate">mutate</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "mutateChangeActivation"></a>
+    <strong>mutateChangeActivation ()</strong>
+    </dt>
+    <dd>
+    Choose a random node and change its activation function
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/Genome.html#setupMutateProbs">setupMutateProbs</a></li>
+         <li><a href="../modules/Genome.html#mutate">mutate</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "mutateSplitConnection"></a>
+    <strong>mutateSplitConnection (connection)</strong>
+    </dt>
+    <dd>
+    Slipts a connection, if not passed, it chooses a random connection and split it.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">connection</span>
+        [opt] table
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <li><a href="../modules/Genome.html#setupMutateProbs">setupMutateProbs</a></li>
+         <li><a href="../modules/Genome.html#mutate">mutate</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "mutateWeight"></a>
+    <strong>mutateWeight ()</strong>
+    </dt>
+    <dd>
+    selects a random connection and change its weight
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        number | nil
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">math</span>.<span class="function-name">randomseed</span>(<span class="number">69</span>) <span class="comment">-- for same results
+</span><span class="keyword">local</span> nn = Genome.<span class="function-name">new</span>(<span class="number">3</span>, <span class="number">5</span>)
+
+<span class="keyword">local</span> connection = nn:<span class="function-name">mutateNewConnection</span>()
+
+<span class="global">print</span>(connection.weight) <span class="comment">-- 0.40090842076939
+</span>nn:<span class="function-name">mutateWeight</span>()
+<span class="global">print</span>(connection.weight) <span class="comment">-- 0.28136715285445</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "mutateNewConnection"></a>
+    <strong>mutateNewConnection ()</strong>
+    </dt>
+    <dd>
+    Adds a new connection and returns if possible
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table | nil
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> nn = Genome.<span class="function-name">new</span>(<span class="number">3</span>, <span class="number">2</span>)
+<span class="global">print</span>(#nn.connections) <span class="comment">-- 0
+</span>nn:<span class="function-name">mutateNewConnection</span>()
+<span class="global">print</span>(#nn.connections) <span class="comment">-- 1</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "mutate"></a>
+    <strong>mutate ()</strong>
+    </dt>
+    <dd>
+    Mutates the Network randomly based on the probabilities setted
+
+
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/Genome.html#setupMutateProbs">setupMutateProbs</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "forward"></a>
+    <strong>forward (input)</strong>
+    </dt>
+    <dd>
+    Makes the forward process and returns a vector
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">input</span>
+         table
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="global">math</span>.<span class="function-name">randomseed</span>(<span class="number">69</span>) <span class="comment">-- for same results
+</span><span class="keyword">local</span> nn = Genome.<span class="function-name">new</span>(<span class="number">3</span>, <span class="number">4</span>) <span class="comment">-- receives 3 inputs and produces 4 numbers
+</span>
+<span class="comment">-- Making a fully [connected network](https://youtube.com)
+</span><span class="keyword">for</span> i, in_node <span class="keyword">in</span> <span class="global">ipairs</span>(nn.nodes.input) <span class="keyword">do</span>
+    <span class="keyword">for</span> j, out_node <span class="keyword">in</span> <span class="global">ipairs</span>(nn.nodes.output) <span class="keyword">do</span>
+        nn:<span class="function-name">newConnection</span>(in_node, out_node)
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+ <span class="comment">-- We can send input only for selected input nodes.
+</span> <span class="comment">-- In this case, only the 2nd input node will receive a value
+</span> <span class="comment">-- the rest will be setted as 0
+</span><span class="keyword">local</span> out = nn:<span class="function-name">forward</span>({ [<span class="number">2</span>] = <span class="number">3</span> })
+<span class="global">print</span>(<span class="global">table</span>.<span class="function-name">concat</span>(out, <span class="string">", "</span>)) <span class="comment">-- 1.1413761962552, 1.7518015494614, 2.1827942531713, 1.1897555017687</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "takeAction"></a>
+    <strong>takeAction (inp)</strong>
+    </dt>
+    <dd>
+    Returns an integer number which represents what action the AI did.
+ it's like the <a href="../modules/Genome.html#forward">forward</a> method but instead of return a vector with the outputs, it returns the "action" of the AI
+ based on the maximum value. It's useful when you want an AI to play a game and make it do actions
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">inp</span>
+         table
+        </li>
+    </ul>
+
+
+
+    <h3>See also:</h3>
+    <ul>
+         <a href="../modules/Genome.html#forward">forward</a>
+    </ul>
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> mynn = Genome.<span class="function-name">new</span>(<span class="number">3</span>, <span class="number">5</span>) <span class="comment">-- receives 3 inputs, and can do 5 actions
+</span><span class="keyword">local</span> JUMP = <span class="number">1</span>
+<span class="keyword">local</span> WALK_LEFT = <span class="number">2</span>
+<span class="keyword">local</span> WALK_RIGHT = <span class="number">3</span>
+<span class="keyword">local</span> WALK_STOP = <span class="number">4</span>
+<span class="keyword">local</span> ATTACK = <span class="number">5</span>
+
+<span class="keyword">local</span> action = mynn:<span class="function-name">takeAction</span>(Game.<span class="function-name">getState</span>())
+<span class="keyword">if</span> action == JUMP <span class="keyword">then</span>
+ Game.<span class="function-name">jump</span>()
+<span class="keyword">elseif</span> action == WALK_LEFT <span class="keyword">then</span>
+ Game.<span class="function-name">walkLeft</span>()
+<span class="keyword">elseif</span> action == WALK_RIGHT <span class="keyword">then</span>
+ Game.<span class="function-name">walkRight</span>()
+<span class="keyword">elseif</span> action == WALK_STOP <span class="keyword">then</span>
+ Game.<span class="function-name">walkStop</span>()
+<span class="keyword">elseif</span> action == ATTACK <span class="keyword">then</span>
+ Game.<span class="function-name">attack</span>()
+<span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getDisjointConnections"></a>
+    <strong>getDisjointConnections (nn)</strong>
+    </dt>
+    <dd>
+    Returns the disjoint connections
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getMatchingConnections"></a>
+    <strong>getMatchingConnections (nn)</strong>
+    </dt>
+    <dd>
+    Returns a list of matching genes
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        table
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getExcess"></a>
+    <strong>getExcess (nn)</strong>
+    </dt>
+    <dd>
+    Returns the number of excess genes
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+         <a href="../modules/Genome.html#">Genome</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        integer
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getAvarageWeightDiff"></a>
+    <strong>getAvarageWeightDiff (nn)</strong>
+    </dt>
+    <dd>
+    Computes the weight difference between two Genomes
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "getCompatibility"></a>
+    <strong>getCompatibility (nn[, c1[, c2[, c3]]])</strong>
+    </dt>
+    <dd>
+    Returns how different the networks are
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+         <a href="../modules/Genome.html#">Genome</a>
+        </li>
+        <li><span class="parameter">c1</span>
+         The weight 1
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">c2</span>
+         The weight 2
+         (<em>optional</em>)
+        </li>
+        <li><span class="parameter">c3</span>
+         The weight 3
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> nn1 = Genome.<span class="function-name">new</span>(<span class="number">5</span>, <span class="number">3</span>)
+<span class="keyword">local</span> nn2 = Genome.<span class="function-name">new</span>(<span class="number">5</span>, <span class="number">3</span>)
+
+<span class="global">print</span>(nn1:<span class="function-name">getCompatibility</span>(nn2)) <span class="comment">-- prints 0. They are 100% equal!
+</span>
+<span class="comment">-- Modifying the networks...
+</span><span class="keyword">for</span> i=<span class="number">1</span>, <span class="number">8</span> <span class="keyword">do</span>
+ nn1:<span class="function-name">mutate</span>()
+ nn2:<span class="function-name">mutate</span>()
+<span class="keyword">end</span>
+<span class="global">print</span>(nn1:<span class="function-name">getCompatibility</span>(nn2))</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "crossover"></a>
+    <strong>crossover (nn)</strong>
+    </dt>
+    <dd>
+    Makes the crossover between two Genomes generating a "child"
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">nn</span>
+         <a href="../modules/Genome.html#">Genome</a>
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a new <a href="../modules/Genome.html#">Genome</a>
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> parent1 = Genome.<span class="function-name">new</span>(<span class="number">2</span>, <span class="number">3</span>)
+<span class="keyword">local</span> parent2 = Genome.<span class="function-name">new</span>(<span class="number">2</span>, <span class="number">3</span>)
+
+<span class="keyword">for</span> i=<span class="number">1</span>, <span class="number">5</span> <span class="keyword">do</span>
+ parent1:<span class="function-name">mutate</span>()
+ parent2:<span class="function-name">mutate</span>()
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> child = parent1:<span class="function-name">crossover</span>(parent2)
+<span class="global">print</span>(child:<span class="function-name">getCompatibility</span>(parent1), child:<span class="function-name">getCompatibility</span>(parent2))</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getSpeciesBelongs"></a>
+    <strong>getSpeciesBelongs ()</strong>
+    </dt>
+    <dd>
+    Returns which species this Genome belongs to
+ If you're not using the class <a href="../modules/Population.html#">Population</a> it will not work.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "setSpeciesBelongs"></a>
+    <strong>setSpeciesBelongs (s)</strong>
+    </dt>
+    <dd>
+    Sets to which species this Genome is from.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "save"></a>
+    <strong>save (file)</strong>
+    </dt>
+    <dd>
+    Saves the Genome in the provided file
+ This method only works if you have binser installed
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file</span>
+         a string representing the path
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "load"></a>
+    <strong>load (file)</strong>
+    </dt>
+    <dd>
+    Loads a Genome network from the provided file
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">file</span>
+         A string representing the path to the file
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        <a href="../modules/Genome.html#">Genome</a>
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-12-11 19:41:30 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
