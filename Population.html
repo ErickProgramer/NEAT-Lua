@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>NEAT (NeuroEvolution of Augmented Topologies) for Lua</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>NEAT-Lua</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions </a></li>
+<li><a href="#Methods">Methods </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/init.html">init</a></li>
+  <li><a href="../modules/Genome.html">Genome</a></li>
+  <li><strong>Population</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>Population</code></h1>
+<p>Evolve your <a href="../modules/Genome.html#">Genome</a> networks!
+ The NEAT algorithm evolves based on generations
+ so, this class allows you to have a Population that
+ evolves along the time by doing crossover, mutations etc.</p>
+<p>
+ But it's up to you define your fitness logic so the algorithm can evolve.</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">local Population = require &quot;NEAT.Population&quot;
+</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#new">new (n_inputs, n_outputs)</a></td>
+	<td class="summary">Creates a new <a href="../modules/Population.html#">Population</a> object</td>
+	</tr>
+</table>
+<h2><a href="#Methods">Methods </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#setCompatibilityThresold">setCompatibilityThresold (thresold)</a></td>
+	<td class="summary">Sets the maximum value to the accept a Genome in a Network (it's 0.5 by default)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#addAgents">addAgents (size)</a></td>
+	<td class="summary">Adds a certain quantity of agents to the population</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#insertAgent">insertAgent (agent)</a></td>
+	<td class="summary">Adds an agent to the population</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#removeAgent">removeAgent (agent)</a></td>
+	<td class="summary">Removes an agent from the population</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#mutate">mutate (n)</a></td>
+	<td class="summary">Makes the mutation process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#speciate">speciate ()</a></td>
+	<td class="summary">Makes the speciation process (split agents into species)</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#killHalf">killHalf ()</a></td>
+	<td class="summary">Currently not used</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#adjustFitness">adjustFitness ()</a></td>
+	<td class="summary">Adjust the fitness of every entity</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#crossover">crossover ()</a></td>
+	<td class="summary">Makes the crossover process</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#evolve">evolve ([n_mut])</a></td>
+	<td class="summary">Makes the population evolve by calling <a href="../modules/Population.html#adjustFitness">adjustFitness</a>, <a href="../modules/Population.html#crossover">crossover</a>, <a href="../modules/Population.html#mutate">mutate</a> & <a href="../modules/Population.html#speciate">speciate</a></td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#run">run (responseObserver, dataset, generations, debug_steps)</a></td>
+	<td class="summary">Run a population for N generations
+ You can use it to train the AIs in a specific dataset,
+ but it's not useful for games for example.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new (n_inputs, n_outputs)</strong>
+    </dt>
+    <dd>
+    Creates a new <a href="../modules/Population.html#">Population</a> object
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n_inputs</span>
+
+        </li>
+        <li><span class="parameter">n_outputs</span>
+
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Methods"></a>Methods </h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "setCompatibilityThresold"></a>
+    <strong>setCompatibilityThresold (thresold)</strong>
+    </dt>
+    <dd>
+    Sets the maximum value to the accept a Genome in a Network (it's 0.5 by default)
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">thresold</span>
+         an integer
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "addAgents"></a>
+    <strong>addAgents (size)</strong>
+    </dt>
+    <dd>
+    Adds a certain quantity of agents to the population
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">size</span>
+         an integer representing how much agents will be inserted
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "insertAgent"></a>
+    <strong>insertAgent (agent)</strong>
+    </dt>
+    <dd>
+    Adds an agent to the population
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">agent</span>
+         a <a href="../modules/Genome.html#">Genome</a> object
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "removeAgent"></a>
+    <strong>removeAgent (agent)</strong>
+    </dt>
+    <dd>
+    Removes an agent from the population
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">agent</span>
+         a <a href="../modules/Genome.html#">Genome</a> object to be removed
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "mutate"></a>
+    <strong>mutate (n)</strong>
+    </dt>
+    <dd>
+    Makes the mutation process
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+         an integer representing how many agents will mutate
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "speciate"></a>
+    <strong>speciate ()</strong>
+    </dt>
+    <dd>
+    Makes the speciation process (split agents into species)
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "killHalf"></a>
+    <strong>killHalf ()</strong>
+    </dt>
+    <dd>
+    Currently not used
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "adjustFitness"></a>
+    <strong>adjustFitness ()</strong>
+    </dt>
+    <dd>
+    Adjust the fitness of every entity
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "crossover"></a>
+    <strong>crossover ()</strong>
+    </dt>
+    <dd>
+    Makes the crossover process
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "evolve"></a>
+    <strong>evolve ([n_mut])</strong>
+    </dt>
+    <dd>
+    Makes the population evolve by calling <a href="../modules/Population.html#adjustFitness">adjustFitness</a>, <a href="../modules/Population.html#crossover">crossover</a>, <a href="../modules/Population.html#mutate">mutate</a> & <a href="../modules/Population.html#speciate">speciate</a>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n_mut</span>
+         an integer to be passed to <a href="../modules/Population.html#mutate">mutate</a>
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "run"></a>
+    <strong>run (responseObserver, dataset, generations, debug_steps)</strong>
+    </dt>
+    <dd>
+    Run a population for N generations
+ You can use it to train the AIs in a specific dataset,
+ but it's not useful for games for example.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">responseObserver</span>
+         the fitness function, use it to make your fitness logic.
+        </li>
+        <li><span class="parameter">dataset</span>
+         the dataset table
+        </li>
+        <li><span class="parameter">generations</span>
+         the number of generations to run
+        </li>
+        <li><span class="parameter">debug_steps</span>
+         each `debug_steps` generation, it'll show debug informations
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        a <a href="../modules/Genome.html#">Genome</a> representing the better agent from the last generation
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> Population = <span class="global">require</span>(<span class="string">"Population"</span>)
+
+<span class="comment">-- Learning the OR operation
+</span><span class="keyword">local</span> p = Population.<span class="function-name">new</span>(<span class="number">2</span>, <span class="number">1</span>)
+
+p:<span class="function-name">setCompatibilityThresold</span>(<span class="number">0.2</span>)
+
+<span class="comment">-- Creating an initial population with 100 agents
+</span>p:<span class="function-name">addAgents</span>(<span class="number">100</span>)
+
+<span class="keyword">local</span> dataset = {
+    { {<span class="number">0</span>,<span class="number">0</span>}, {<span class="number">0</span>} },
+    { {<span class="number">0</span>,<span class="number">1</span>}, {<span class="number">1</span>} },
+    { {<span class="number">1</span>,<span class="number">0</span>}, {<span class="number">1</span>} },
+    { {<span class="number">1</span>,<span class="number">1</span>}, {<span class="number">1</span>} }
+}
+
+<span class="keyword">local</span> <span class="keyword">function</span> <span class="function-name">fitness_eval</span>(population, agent, state, response, expected)
+    <span class="keyword">local</span> dist = <span class="global">math</span>.<span class="function-name">abs</span>(expected[<span class="number">1</span>] - response[<span class="number">1</span>])
+    agent.fitness = agent.fitness + (<span class="number">1</span> - dist)  <span class="comment">-- Max fitness is 1, minimize dist
+</span><span class="keyword">end</span>
+
+<span class="keyword">local</span> n_epochs = <span class="number">1000</span>
+<span class="keyword">local</span> debug_step = <span class="number">100</span>
+<span class="keyword">local</span> better = p:<span class="function-name">run</span>(fitness_eval, dataset, n_epochs, debug_step)
+
+<span class="comment">-- if you have binser installed, you can save this agent in a file:
+</span>better:<span class="function-name">save</span>(<span class="string">"myagent.save"</span>)</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/lunarmodules/LDoc">LDoc 1.5.0</a></i>
+<i style="float:right;">Last updated 2024-12-11 19:33:31 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
