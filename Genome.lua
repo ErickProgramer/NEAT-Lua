@@ -130,6 +130,23 @@ function Genome.new(n_inputs, n_outputs)
     return self
 end
 
+--- Loads a Genome network from the provided file
+-- @usage
+-- local nn = Genome.load "my_saved_network.save"
+-- @param file A string representing the path to the file
+-- @return @{Genome}
+function Genome.load(file)
+    local from_file = binser_readFile(file)[1]
+    local obj = setmetatable({}, Genome)
+
+    for k, v in pairs(from_file) do
+        obj[k] = v
+    end
+    obj[_neatKey] = true -- because binser does not detect this private variable
+
+    return obj
+end
+
 function Genome.setRandomGenerator(f)
     random = f
 end
@@ -971,21 +988,6 @@ else
         end
 
         binser_writeFile(file, objs)
-    end
-
-    --- Loads a Genome network from the provided file
-    -- @param file A string representing the path to the file
-    -- @return @{Genome}
-    function Genome.load(file)
-        local from_file = binser_readFile(file)[1]
-        local obj = setmetatable({}, Genome)
-
-        for k, v in pairs(from_file) do
-            obj[k] = v
-        end
-        obj[_neatKey] = true -- because binser does not detect this private variable
-
-        return obj
     end
 end
 
