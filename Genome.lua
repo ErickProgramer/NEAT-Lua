@@ -50,7 +50,7 @@ end
 local _neatKey = {}
 
 -- PERFORMANCE TIP: methods into locals
-local Genome_new, Genome_newNode, Genome_getNode, Genome_activate, Genome_existConnection, Genome_getExcess, Genome_mutateWeight, Genome_resetOutputs, Genome_newConnection, Genome_getConnection, Genome_newNodes, Genome_mutateNewConnection, Genome_getAvarageWeightDiff, Genome_setupMutateProbs, Genome_mutateChangeActivation, Genome_mutateSplitConnection, Genome_getMatchingConnections, Genome_getDisjointConnections, Genome_existInFreeConnections, Genome_setAsFreeConnection, Genome_setEveryConnectionAsFree
+local Genome_new, Genome_newNode, Genome_getNode, Genome_activate, Genome_existConnection, Genome_getExcess, Genome_mutateWeight, Genome_resetOutputs, Genome_newConnection, Genome_getConnection, Genome_newNodes, Genome_mutateNewConnection, Genome_getAvarageWeightDiff, Genome_setupMutateProbs, Genome_mutateChangeActivation, Genome_mutateSplitConnection, Genome_getMatchingConnections, Genome_getDisjointConnections, Genome_existInFreeConnections, Genome_setAsFreeConnection, Genome_setEveryConnectionAsFree, Genome_forward, Genome_removeFromFreeConnections, Genome_pickRandomFreeConnection
 
 local Genome = {}
 Genome.__index = Genome
@@ -502,12 +502,12 @@ function Genome:newConnection(in_node, out_node, weight, enabled, innov)
     connections[#connections+1] = connection
     connections.exist_connection[in_node.id .. "-" .. out_node.id] = connection
 
-    if self:existInFreeConnections(connection) then
-        self:removeFromFreeConnections(in_node.id, out_node.id)
+    if Genome_existInFreeConnections(self, connection) then
+        Genome_removeFromFreeConnections(self, in_node.id, out_node.id)
     end
 
-    if self:existInFreeConnections({ in_node=out_node, out_node=in_node }) then
-        self:removeFromFreeConnections(out_node.id, in_node.id)
+    if Genome_existInFreeConnections(self, { in_node=out_node, out_node=in_node }) then
+        Genome_removeFromFreeConnections(self, out_node.id, in_node.id)
     end
 
     return connection
@@ -634,7 +634,7 @@ end
 -- print(#nn.connections) -- 1
 ---@return table | nil
 function Genome:mutateNewConnection()
-    local co = self:pickRandomFreeConnection()
+    local co = Genome_pickRandomFreeConnection(self)
 
     -- can be nil if there's no free connections
     if co then
@@ -745,7 +745,7 @@ end
 -- @see forward
 ---@param inp table
 function Genome:takeAction(inp)
-    local res = self:forward(inp)
+    local res = Genome_forward(inp)
     local max, idx = res[1], 1
     for i=2, #res do
         local v = res[i]
@@ -1023,6 +1023,9 @@ Genome_getMatchingConnections = Genome.getMatchingConnections
 Genome_existInFreeConnections = Genome.existInFreeConnections
 Genome_setAsFreeConnection = Genome.setAsFreeConnection
 Genome_setEveryConnectionAsFree = Genome.setEveryConnectionAsFree
+Genome_forward = Genome.forward
+Genome_removeFromFreeConnections = Genome.removeFromFreeConnections
+Genome_pickRandomFreeConnection = Genome.pickRandomFreeConnection
 
 math.randomseed(os.time())
 random() random() random() random()

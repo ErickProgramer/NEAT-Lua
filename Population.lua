@@ -26,7 +26,6 @@ end
 
 -- importing Lua's standard functions
 local tsort = table.sort
-local ipairs = ipairs
 local floor = math.floor
 local random = math.random
 local mceil = math.ceil
@@ -34,6 +33,7 @@ local assert = assert
 local fmt = string.format
 local tconcat = table.concat
 local print = print
+local setmetatable = setmetatable
 
 local success, clear = pcall(require, "table.clear")
 if not success then -- lets create our own
@@ -48,7 +48,7 @@ local function orderByFitness(a1, a2)
     return a1.fitness < a2.fitness
 end
 
-local Population_mutate, Population_crossover, Population_adjustFitness, Population_speciate, Population_killHalf, Population_evolve, Population_getBetterFitness, Population_getWorstFitness
+local Population_mutate, Population_crossover, Population_adjustFitness, Population_speciate, Population_killHalf, Population_evolve, Population_getBetterFitness, Population_getWorstFitness, Population_setCompatibilityThresold, Population_removeAgent
 local Population = {}
 Population.__index = Population
 
@@ -68,7 +68,7 @@ function Population.new(n_inputs, n_outputs)
         species = {},
     }, Population)
 
-    self:setCompatibilityThresold(0.5)
+    Population_setCompatibilityThresold(self, 0.5)
 
     return self
 end
@@ -188,7 +188,7 @@ function Population:killHalf()
        local spec = species[i]
        local thresold = mceil(#spec * 0.5)
        for j=thresold, #spec do
-            self:removeAgent(spec[j])
+            Population_removeAgent(self, spec[j])
        end
     end
 end
@@ -365,5 +365,7 @@ Population_adjustFitness = Population.adjustFitness
 Population_evolve = Population.evolve
 Population_getBetterFitness = Population.getBetterFitness
 Population_getWorstFitness = Population.getWorstFitness
+Population_setCompatibilityThresold = Population.setCompatibilityThresold
+Population_removeAgent = Population.removeAgent
 
 return Population
