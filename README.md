@@ -17,3 +17,6 @@ local Genome = require "NEAT.Genome"
 local Population = require "NEAT.Population"
 ```
 
+### Documentation
+The documentation is available [here](https://erickprogramer.github.io/NEAT-Lua)
+
