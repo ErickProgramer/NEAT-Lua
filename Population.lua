@@ -194,7 +194,7 @@ function Population:killHalf()
 end
 
 --- Adjust the fitness of every entity
--- The equation to adjust the fitness of an individue is:
+-- The equation to adjust the fitness of an individual is:
 -- new_fitness = old_fitness / N
 -- where N is the number of members of the species the indivue belongs to.
 function Population:adjustFitness()
@@ -210,9 +210,9 @@ function Population:adjustFitness()
 end
 
 --- Makes the crossover process
--- This method iterate over every species and keeps the better individue
--- in the next generation, and if the species has more than 1 individue,
--- it makes the crossover over the better individue and the second better individue
+-- This method iterate over every species and keeps the better individual
+-- in the next generation, and if the species has more than 1 individual,
+-- it makes the crossover over the better individual and the second better individual
 function Population:crossover()
     self.cache = nil
     local species = self.species
