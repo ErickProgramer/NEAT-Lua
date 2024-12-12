@@ -1,7 +1,7 @@
 --- Evolve your @{Genome} networks!
 -- The NEAT algorithm evolves based on generations
 -- so, this class allows you to have a Population that
--- evolves along the time by doing crossover, mutations etc.
+-- evolves over time by doing crossover, mutations etc.
 -- But it's up to you define your fitness logic so the algorithm can evolve.
 -- @module Population
 -- @usage
