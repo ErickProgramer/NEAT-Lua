@@ -508,7 +508,7 @@ function Genome:activate()
     end
 end
 
---- Setups the probabilities for each mutation happens when call the `:mutate` method.
+--- Setups the probabilities for each mutation happens when call the @{mutate} method.
 -- If you don't call this method the default probabilities will be setted.
 -- @param info table
 -- @usage
