@@ -34,7 +34,6 @@ local assert = assert
 local fmt = string.format
 local tconcat = table.concat
 local print = print
-local clock = os.clock
 
 local success, clear = pcall(require, "table.clear")
 if not success then -- lets create our own
@@ -57,6 +56,10 @@ Population.__index = Population
 -- @section Functions
 
 --- Creates a new @{Population} object
+-- @usage
+-- local population = Population.new(3, 4) -- each agent in this Population must have 3 input nodes and 4 output nodes
+-- @param n_inputs an integer representing the required number of input nodes for each Genome
+-- @param n_outputs an integer representing the required number of output nodes for each Genome
 function Population.new(n_inputs, n_outputs)
     local self = setmetatable({
         n_inputs = n_inputs,
@@ -73,7 +76,7 @@ end
 --- Methods
 -- @section Methods
 
---- Sets the maximum value to the accept a Genome in a Network (it's 0.5 by default)
+--- Sets the maximum value to accept a @{Genome} in a species (it's 0.5 by default)
 -- @param thresold an integer
 function Population:setCompatibilityThresold(thresold)
     self._compatibility_thresold = thresold
@@ -110,6 +113,15 @@ function Population:insertAgent(agent)
 end
 
 --- Removes an agent from the population
+-- @usage
+-- local pop = Population.new(4, 3)
+--
+-- local g = Genome.new(4, 3)
+-- pop:insertAgent(g)
+-- print(#pop.population) -- 1
+-- pop:removeAgent(g)
+-- print(#pop.population) -- 0
+-- pop:
 -- @param agent a @{Genome} object to be removed
 function Population:removeAgent(agent)
     local population = self.population
@@ -138,7 +150,7 @@ end
 --- Makes the speciation process (split agents into species)
 function Population:speciate()
     local species = self.species
-    clear(species)
+    clear(species) -- reseting the species
 
     local population = self.population
     local cmp_thresold = self._compatibility_thresold
@@ -182,6 +194,9 @@ function Population:killHalf()
 end
 
 --- Adjust the fitness of every entity
+-- The equation to adjust the fitness of an individue is:
+-- new_fitness = old_fitness / N
+-- where N is the number of members of the species the indivue belongs to.
 function Population:adjustFitness()
     local species = self.species
     for i=1, #species do
@@ -195,6 +210,9 @@ function Population:adjustFitness()
 end
 
 --- Makes the crossover process
+-- This method iterate over every species and keeps the better individue
+-- in the next generation, and if the species has more than 1 individue,
+-- it makes the crossover over the better individue and the second better individue
 function Population:crossover()
     self.cache = nil
     local species = self.species

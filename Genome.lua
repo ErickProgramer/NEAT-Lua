@@ -130,21 +130,23 @@ function Genome.new(n_inputs, n_outputs)
     return self
 end
 
---- Loads a Genome network from the provided file
--- @usage
--- local nn = Genome.load "my_saved_network.save"
--- @param file A string representing the path to the file
--- @return @{Genome}
-function Genome.load(file)
-    local from_file = binser_readFile(file)[1]
-    local obj = setmetatable({}, Genome)
+if binser_support then
+    --- Loads a Genome network from the provided file
+    -- @usage
+    -- local nn = Genome.load "my_saved_network.save"
+    -- @param file A string representing the path to the file
+    -- @return @{Genome}
+    function Genome.load(file)
+        local from_file = binser_readFile(file)[1]
+        local obj = setmetatable({}, Genome)
 
-    for k, v in pairs(from_file) do
-        obj[k] = v
+        for k, v in pairs(from_file) do
+            obj[k] = v
+        end
+        obj[_neatKey] = true -- because binser does not detect this private variable
+
+        return obj
     end
-    obj[_neatKey] = true -- because binser does not detect this private variable
-
-    return obj
 end
 
 function Genome.setRandomGenerator(f)
@@ -313,7 +315,10 @@ function Genome:newNode(kind, activation)
     return node
 end
 
---- Create multime nodes _amount_ times.
+--- Add the specified quantity of nodes
+-- @usage
+-- local net = Genome.new(3, 5)
+-- net:newNodes("hidden", 100) -- adding 100 hidden nodes
 --@param kind The kind of the node
 --@param amount How much nodes to be inserted
 --@param activation The activation function of the node
@@ -324,6 +329,11 @@ function Genome:newNodes(kind, amount, activation)
 end
 
 --- Returns true if the connection exist
+-- @usage
+-- local mynet = Genome.new(2, 3)
+-- mynet:newConnection(mynet.nodes.input[1], mynet.nodes.output[1])
+--
+-- print(mynet:existConnection(mynet.nodes.input[1], mynet.nodes.output[1])) -- true
 -- @param in_node The input node. Can be an integer or a @{Node}
 -- @param out_node The output node. Can be an integer or a @{Node}
 -- @return true or false
@@ -384,6 +394,7 @@ function Genome:existInFreeConnections(connection)
 end
 
 --- Removes a connection from the free connections
+-- Function for internal usage
 function Genome:removeFromFreeConnections(in_node, out_node)
     in_node = Genome_getNode(self, in_node)
     out_node = Genome_getNode(self, out_node)
@@ -457,7 +468,7 @@ end
 
 --- Creates a new connection
 -- @usage
--- local mynn = Gnome.new(1, 1)
+-- local mynn = Genome.new(1, 1)
 -- mynn:newConnection(1, 2, 0.5)
 -- print(mynn:forward({ 5 }))
 -- @return Connection
